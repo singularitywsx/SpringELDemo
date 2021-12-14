@@ -34,9 +34,9 @@ INSERT INTO RULE VALUES ('3', '10000', 'NationalityCheck',  '#UserFact.nationali
 
 啟動後 網址 輸入
 通過
-http://localhost:8081/test/param?ruleCode=124&age=19&nationality=TW
+http://localhost:8081/test/param?rule=124&age=19&nationality=TW
 不通過
-http://localhost:8081/test/param?ruleCode=124&age=17&nationality=CH
+http://localhost:8081/test/param?rule=124&age=17&nationality=CH
 
                                                 
 
