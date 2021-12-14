@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface RuleService {
 
-    List<Rule> findByRuleId(final String id);
+    List<Rule> findByRuleCode(final String code);
 }

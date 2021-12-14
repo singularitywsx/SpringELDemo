@@ -15,7 +15,7 @@ public class RuleServiceImpl implements RuleService {
     public RuleRespository ruleRespository;
 
     @Override
-    public List<Rule> findByRuleId(String id) {
-        return ruleRespository.findByRuleId(id);
+    public List<Rule> findByRuleCode(final String code) {
+        return ruleRespository.findByRuleCode(code);
     }
 }

@@ -2,88 +2,28 @@ package com.example.demo.controller;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.context.expression.BeanFactoryResolver;
 import org.springframework.core.ResolvableType;
+import org.springframework.expression.AccessException;
+import org.springframework.expression.BeanResolver;
+import org.springframework.expression.EvaluationContext;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
+import org.springframework.stereotype.Component;
 
-public class CommonRuleBean implements BeanFactory {
+@Component("CommonRuleBean")
+public  class  CommonRuleBean implements BeanResolver {
 
     public String getHelloWorld() {
         return "Hello World!";
     }
 
     @Override
-    public Object getBean(String name) throws BeansException {
+    public Object resolve(EvaluationContext context, String beanName) throws AccessException {
         return new CommonRuleBean();
-    }
-
-    @Override
-    public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
-        return null;
-    }
-
-    @Override
-    public Object getBean(String name, Object... args) throws BeansException {
-        return null;
-    }
-
-    @Override
-    public <T> T getBean(Class<T> requiredType) throws BeansException {
-        return null;
-    }
-
-    @Override
-    public <T> T getBean(Class<T> requiredType, Object... args) throws BeansException {
-        return null;
-    }
-
-    @Override
-    public <T> ObjectProvider<T> getBeanProvider(Class<T> requiredType) {
-        return null;
-    }
-
-    @Override
-    public <T> ObjectProvider<T> getBeanProvider(ResolvableType requiredType) {
-        return null;
-    }
-
-    @Override
-    public boolean containsBean(String name) {
-        return false;
-    }
-
-    @Override
-    public boolean isSingleton(String name) throws NoSuchBeanDefinitionException {
-        return false;
-    }
-
-    @Override
-    public boolean isPrototype(String name) throws NoSuchBeanDefinitionException {
-        return false;
-    }
-
-    @Override
-    public boolean isTypeMatch(String name, ResolvableType typeToMatch) throws NoSuchBeanDefinitionException {
-        return false;
-    }
-
-    @Override
-    public boolean isTypeMatch(String name, Class<?> typeToMatch) throws NoSuchBeanDefinitionException {
-        return false;
-    }
-
-    @Override
-    public Class<?> getType(String name) throws NoSuchBeanDefinitionException {
-        return null;
-    }
-
-    @Override
-    public Class<?> getType(String name, boolean allowFactoryBeanInit) throws NoSuchBeanDefinitionException {
-        return null;
-    }
-
-    @Override
-    public String[] getAliases(String name) {
-        return new String[0];
     }
 }

@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 
 @RestController
@@ -40,7 +39,7 @@ public class TestController {
         return "OK";
     }
 
-    @RequestMapping(value = "/param", method = { GET, POST })
+    @RequestMapping(value = "/param", method = {GET})
     public AuthResultResponse helloSpringEL(
             @RequestParam(required = false)final String ruleCode,
             @RequestParam(required = false)final Integer age,
@@ -82,7 +81,7 @@ public class TestController {
     }
 
     private List<Rule> getRuleExpression(final Scene scene){
-        return ruleService.findByRuleId(scene.getSeneId());
+        return ruleService.findByRuleCode(scene.getRuleCode());
     }
 
     private Scene matchScene(final Map<String, Scene> sceneMap,final AuthContextFact authContextFact){

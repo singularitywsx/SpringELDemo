@@ -5,7 +5,6 @@ import com.example.demo.controller.CommonRuleBean;
 import com.example.demo.controller.HelloSpringEl;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.expression.BeanFactoryResolver;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
@@ -119,15 +118,16 @@ public class HelloSpringElTest {
     @Test
     void test5() {
         var car = new Car();
+        car.setName("Tom");
         StandardEvaluationContext context = new StandardEvaluationContext();
-        context.setVariable("car",car);
-
         ExpressionParser parser =new SpelExpressionParser();
-        try{
-            System.out.println(parser.parseExpression("#car?.name").getValue(context,String.class));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        context.setVariable("car",car);
+        var actual = parser.parseExpression("#car?.name").getValue(context,String.class);
+        assertThat(actual).isNotNull().isEqualTo("Tom");
+        car.setName(null);
+        var name = parser.parseExpression("#car?.name").getValue(context,String.class);
+        System.out.println(name);//null - does throw NullPointerException
+        assertThat(name).isNull();
     }
 
     //@方法調用
@@ -136,12 +136,13 @@ public class HelloSpringElTest {
         CommonRuleBean factory =new CommonRuleBean();
 
         StandardEvaluationContext context = new StandardEvaluationContext();
-        context.setBeanResolver(new BeanFactoryResolver(factory));
+        context.setBeanResolver(factory);
         ExpressionParser parser =new SpelExpressionParser();
         String expression ="@CommonRuleBean.getHelloWorld()";
         var actual =parser.parseExpression(expression).getValue(context,String.class);
         System.out.println(actual);
         assertThat(actual).isNotNull().isEqualTo("Hello World!");
+
     }
 
     //List 宣告, 訪問, 修改

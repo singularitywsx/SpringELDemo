@@ -12,7 +12,7 @@ import java.util.List;
 public interface RuleRespository extends JpaRepository<Rule, Integer> {
 
     //@Query查詢
-    @Query(value = "select * from rule where rule_id = ? ", nativeQuery = true)
-    List<Rule> findByRuleId(@Param("rule_id") String id);
+    @Query(value = "select * from rule where rule_code = ? ", nativeQuery = true)
+    List<Rule> findByRuleCode(@Param("rule_code") String code);
 
 }

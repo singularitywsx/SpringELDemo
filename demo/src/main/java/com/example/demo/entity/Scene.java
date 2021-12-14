@@ -6,14 +6,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "scene")
+@Table(name = "SCENE")
 public class Scene {
     @Id
     @Column(name = "id")
     public Integer id;
 
-    @Column(name = "sene_id")
-    public String seneId;
+    @Column(name = "rule_code")
+    public String ruleCode;
 
     @Column(name = "sene_name")
     public String seneName;
@@ -32,12 +32,12 @@ public class Scene {
         this.id = id;
     }
 
-    public String getSeneId() {
-        return seneId;
+    public String getRuleCode() {
+        return ruleCode;
     }
 
-    public void setSeneId(String seneId) {
-        this.seneId = seneId;
+    public void setRuleCode(String seneId) {
+        this.ruleCode = seneId;
     }
 
     public String getSeneName() {

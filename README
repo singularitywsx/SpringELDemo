@@ -3,20 +3,20 @@ Spring Boot + Spring Data JPA + H2 +JUnit4
 DB:H2 
 
 創建表格
-DROP TABLE scene if exists scene;
-CREATE TABLE scene(
+DROP TABLE SCENE if exists SCENE;
+CREATE TABLE SCENE(
 id int(15) NOT NULL ,
-sene_id VARCHAR(256) NOT NULL,
+rule_code VARCHAR(256) NOT NULL,
 sene_name VARCHAR(256) NOT NULL,
 expression VARCHAR(256) NOT NULL,
 memo VARCHAR(256) NOT NULL,
 PRIMARY KEY (id)
 );
 
-DROP TABLE rule if exists rule;
-CREATE TABLE rule(
+DROP TABLE RULE  if exists RULE ;
+CREATE TABLE RULE (
 id int(256) NOT NULL ,
-rule_id VARCHAR(256) NOT NULL,
+rule_code VARCHAR(256) NOT NULL,
 rule_name VARCHAR(256) NOT NULL,
 expression VARCHAR(256) NOT NULL,
 rule_type VARCHAR(256) NOT NULL,
@@ -25,14 +25,14 @@ PRIMARY KEY (id)
 );
 
 
-INSERT INTO scene VALUES ('1', '10000', 'xxxx',  '#AuthContextFact.ruleCode ==''124''', '是否可用'); 
-INSERT INTO scene VALUES ('2', '10001', 'xxxx',  '#AuthContextFact.ruleCode ==''147''', '是否可用'); 
+INSERT INTO SCENE VALUES ('1', '10000', 'xxxx',  '#AuthContextFact.ruleCode ==''124''', '是否可用'); 
+INSERT INTO SCENE VALUES ('2', '10001', 'xxxx',  '#AuthContextFact.ruleCode ==''147''', '是否可用'); 
 
-INSERT INTO rule VALUES ('1', '10000', 'userExistAndStatusEnable',  '#UserFact.exists ==true and #UserFact.status =="ENABLE" ','AUTH_RULE', '用戶存在和是否可用不過'); 
-INSERT INTO rule VALUES ('2', '10000', 'ageCheck',  '#UserFact.age >=18','AUTH_RULE', '年齡檢核不過'); 
-INSERT INTO rule VALUES ('3', '10000', 'NationalityCheck',  '#UserFact.nationality =="TW" ','AUTH_RULE', '國別不是TW'); 
+INSERT INTO RULE VALUES ('1', '10000', 'userExistAndStatusEnable',  '#UserFact.exists ==true and #UserFact.status =="ENABLE" ','AUTH_RULE', '用戶存在和是否可用不過'); 
+INSERT INTO RULE VALUES ('2', '10000', 'ageCheck',  '#UserFact.age >=18','AUTH_RULE', '年齡檢核不過'); 
+INSERT INTO RULE VALUES ('3', '10000', 'NationalityCheck',  '#UserFact.nationality =="TW" ','AUTH_RULE', '國別不是TW'); 
 
-啟動後輸入測試參數
+啟動後 網址 輸入
 通過
 http://localhost:8081/test/param?ruleCode=124&age=19&nationality=TW
 不通過

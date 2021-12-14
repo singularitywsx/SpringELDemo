@@ -7,14 +7,14 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "rule")
+@Table(name = "RULE")
 public class Rule implements Serializable {
     @Id
     @Column(name = "id")
     public Integer id;
 
-    @Column(name = "rule_id")
-    public String ruleId;
+    @Column(name = "rule_code")
+    public String ruleCode;
 
     @Column(name = "rule_name")
     public String ruleName;
@@ -36,12 +36,12 @@ public class Rule implements Serializable {
         this.id = id;
     }
 
-    public String getRuleId() {
-        return ruleId;
+    public String getRuleCode() {
+        return ruleCode;
     }
 
-    public void setRuleId(String ruleId) {
-        this.ruleId = ruleId;
+    public void setRuleCode(String ruleId) {
+        this.ruleCode = ruleId;
     }
 
     public String getRuleName() {
