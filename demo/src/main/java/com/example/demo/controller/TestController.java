@@ -41,13 +41,13 @@ public class TestController {
 
     @RequestMapping(value = "/param", method = {GET})
     public AuthResultResponse helloSpringEL(
-            @RequestParam(required = false)final String ruleCode,
+            @RequestParam(required = false)final String rule,
             @RequestParam(required = false)final Integer age,
             @RequestParam(required = false)final String nationality
         ) {
         var authContextFact = new AuthContextFact();
         var sceneMap =getAllScene();
-        authContextFact.setRuleCode(ruleCode);
+        authContextFact.setRule(rule);
 
         var scene = matchScene(sceneMap,authContextFact);
         var rules = getRuleExpression(scene);
@@ -58,17 +58,17 @@ public class TestController {
         userFact.setAge(age);
         userFact.setNationality(nationality);
 
-        return makeResponse(rules,userFact,ruleCode);
+        return makeResponse(rules,userFact,rule);
     }
 
-    private AuthResultResponse makeResponse(final List<Rule> rules, final UserFact userFact,final String ruleCode){
+    private AuthResultResponse makeResponse(final List<Rule> rules, final UserFact userFact,final String rule){
         var message = new ArrayList<String>();
         for (var s:rules) {
             if(!marchRule(s.getExpression(),userFact)) {
                 message.add(s.getMessage());
             }
         }
-        return makeAuthResultResponse(ruleCode,message);
+        return makeAuthResultResponse(rule,message);
     }
 
 

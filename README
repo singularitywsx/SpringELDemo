@@ -3,7 +3,7 @@ Spring Boot + Spring Data JPA + H2 +JUnit4
 DB:H2 
 
 創建表格
-DROP TABLE SCENE if exists SCENE;
+DROP TABLE SCENE;
 CREATE TABLE SCENE(
 id int(15) NOT NULL ,
 rule_code VARCHAR(256) NOT NULL,
@@ -13,7 +13,7 @@ memo VARCHAR(256) NOT NULL,
 PRIMARY KEY (id)
 );
 
-DROP TABLE RULE  if exists RULE ;
+DROP TABLE RULE;
 CREATE TABLE RULE (
 id int(256) NOT NULL ,
 rule_code VARCHAR(256) NOT NULL,
@@ -25,8 +25,8 @@ PRIMARY KEY (id)
 );
 
 
-INSERT INTO SCENE VALUES ('1', '10000', 'xxxx',  '#AuthContextFact.ruleCode ==''124''', '是否可用'); 
-INSERT INTO SCENE VALUES ('2', '10001', 'xxxx',  '#AuthContextFact.ruleCode ==''147''', '是否可用'); 
+INSERT INTO SCENE VALUES ('1', '10000', 'xxxx',  '#AuthContextFact.rule ==''124''', '是否可用'); 
+INSERT INTO SCENE VALUES ('2', '10001', 'xxxx',  '#AuthContextFact.rule ==''147''', '是否可用'); 
 
 INSERT INTO RULE VALUES ('1', '10000', 'userExistAndStatusEnable',  '#UserFact.exists ==true and #UserFact.status =="ENABLE" ','AUTH_RULE', '用戶存在和是否可用不過'); 
 INSERT INTO RULE VALUES ('2', '10000', 'ageCheck',  '#UserFact.age >=18','AUTH_RULE', '年齡檢核不過'); 

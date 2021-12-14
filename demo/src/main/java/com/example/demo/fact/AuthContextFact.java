@@ -3,13 +3,13 @@ package com.example.demo.fact;
 import java.io.Serializable;
 
 public class AuthContextFact implements Serializable {
-    private String ruleCode;
+    private String rule;
 
-    public String getRuleCode() {
-        return ruleCode;
+    public String getRule() {
+        return rule;
     }
 
-    public void setRuleCode(String ruleCode) {
-        this.ruleCode = ruleCode;
+    public void setRule(String rule) {
+        this.rule = rule;
     }
 }
