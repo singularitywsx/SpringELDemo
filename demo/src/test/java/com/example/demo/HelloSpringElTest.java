@@ -4,7 +4,9 @@ import com.example.demo.controller.Car;
 import com.example.demo.controller.CommonRuleBean;
 import com.example.demo.controller.HelloSpringEl;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.expression.BeanFactoryResolver;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
@@ -133,11 +135,14 @@ public class HelloSpringElTest {
     //@方法調用
     @Test
     void test6() {
-        CommonRuleBean factory =new CommonRuleBean();
+        DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
+        CommonRuleBean commonRuleBean = new CommonRuleBean();
+        factory.registerSingleton("CommonRuleBean", commonRuleBean);
 
         StandardEvaluationContext context = new StandardEvaluationContext();
-        context.setBeanResolver(factory);
-        ExpressionParser parser =new SpelExpressionParser();
+        context.setBeanResolver(new BeanFactoryResolver(factory));
+        ExpressionParser parser = new SpelExpressionParser();
+
         String expression ="@CommonRuleBean.getHelloWorld()";
         var actual =parser.parseExpression(expression).getValue(context,String.class);
         System.out.println(actual);
