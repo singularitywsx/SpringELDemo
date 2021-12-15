@@ -6,10 +6,10 @@ http://localhost:8081/h2
 啟動後 網址 輸入
 通過
 http://localhost:8081/test/param?rule=124&age=19&nationality=TW
-![GITHUB](https://github.com/singularitywsx/SpringELDemo/blob/master/pass.jpg)
+![image](https://github.com/singularitywsx/SpringELDemo/blob/master/pass.jpg)
 不通過
 http://localhost:8081/test/param?rule=124&age=17&nationality=CH
-![GITHUB](https://github.com/singularitywsx/SpringELDemo/blob/master/fail.jpg)
+![image](https://github.com/singularitywsx/SpringELDemo/blob/master/fail.jpg)
 
 
 
