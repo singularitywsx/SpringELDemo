@@ -1,0 +1,20 @@
+DROP TABLE SCENE IF EXISTS;
+CREATE TABLE SCENE(
+    id int(15) NOT NULL ,
+    rule_code VARCHAR(256) NOT NULL,
+    sene_name VARCHAR(256) NOT NULL,
+    expression VARCHAR(256) NOT NULL,
+    memo VARCHAR(256) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+DROP TABLE RULE IF EXISTS;
+CREATE TABLE RULE (
+    id int(256) NOT NULL ,
+    rule_code VARCHAR(256) NOT NULL,
+    rule_name VARCHAR(256) NOT NULL,
+    expression VARCHAR(256) NOT NULL,
+    rule_type VARCHAR(256) NOT NULL,
+    message VARCHAR(256) NOT NULL,
+    PRIMARY KEY (id)
+);

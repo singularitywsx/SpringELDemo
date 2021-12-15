@@ -1,9 +1,18 @@
-Spring Boot + Spring Data JPA + H2 +JUnit4
+Java11+ Spring Boot + Spring Data JPA + H2 +JUnit4
 
 DB:H2 
+http://localhost:8081/h2
 
-創建表格
-DROP TABLE SCENE;
+啟動後 網址 輸入
+通過
+http://localhost:8081/test/param?rule=124&age=19&nationality=TW
+不通過
+http://localhost:8081/test/param?rule=124&age=17&nationality=CH
+
+
+
+表格
+DROP TABLE SCENE IF EXISTS;
 CREATE TABLE SCENE(
 id int(15) NOT NULL ,
 rule_code VARCHAR(256) NOT NULL,
@@ -13,7 +22,7 @@ memo VARCHAR(256) NOT NULL,
 PRIMARY KEY (id)
 );
 
-DROP TABLE RULE;
+DROP TABLE RULE IF EXISTS;
 CREATE TABLE RULE (
 id int(256) NOT NULL ,
 rule_code VARCHAR(256) NOT NULL,
@@ -32,11 +41,6 @@ INSERT INTO RULE VALUES ('1', '10000', 'userExistAndStatusEnable',  '#UserFact.e
 INSERT INTO RULE VALUES ('2', '10000', 'ageCheck',  '#UserFact.age >=18','AUTH_RULE', '年齡檢核不過'); 
 INSERT INTO RULE VALUES ('3', '10000', 'NationalityCheck',  '#UserFact.nationality =="TW" ','AUTH_RULE', '國別不是TW'); 
 
-啟動後 網址 輸入
-通過
-http://localhost:8081/test/param?rule=124&age=19&nationality=TW
-不通過
-http://localhost:8081/test/param?rule=124&age=17&nationality=CH
 
                                                 
 
