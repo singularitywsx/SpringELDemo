@@ -15,10 +15,7 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -41,24 +38,25 @@ public class TestController {
 
     @RequestMapping(value = "/param", method = {GET})
     public AuthResultResponse helloSpringEL(
-            @RequestParam(required = false)final String rule,
-            @RequestParam(required = false)final Integer age,
-            @RequestParam(required = false)final String nationality
+            @RequestParam("rule") final String rule,
+            @RequestParam("age") final Integer age,
+            @RequestParam("nationality") final String nationality
         ) {
         var authContextFact = new AuthContextFact();
         var sceneMap =getAllScene();
         authContextFact.setRule(rule);
-
         var scene = matchScene(sceneMap,authContextFact);
-        var rules = getRuleExpression(scene);
-
-        var userFact = new UserFact();
-        userFact.setExists(true);
-        userFact.setStatus("ENABLE");
-        userFact.setAge(age);
-        userFact.setNationality(nationality);
-
-        return makeResponse(rules,userFact,rule);
+        if(Objects.nonNull(scene)){
+            var rules = getRuleExpression(scene);
+            var userFact = new UserFact();
+            userFact.setExists(true);
+            userFact.setStatus("ENABLE");
+            userFact.setAge(age);
+            userFact.setNationality(nationality);
+            return makeResponse(rules,userFact,rule);
+        }else{
+            return makeNullScene(rule);
+        }
     }
 
     private AuthResultResponse makeResponse(final List<Rule> rules, final UserFact userFact,final String rule){
@@ -69,6 +67,19 @@ public class TestController {
             }
         }
         return makeAuthResultResponse(rule,message);
+    }
+
+    private AuthResultResponse makeNullScene(final String ruleCode){
+        var result = new AuthResultResponse();
+        var head = new CommonHeader();
+        var body = new AuthResultResponseBody();
+
+        head.setId(ruleCode);
+        body.setPass(false);
+        body.setReason("not find Scene" );
+        result.setHeader(head);
+        result.setBody(body);
+        return result;
     }
 
 
@@ -84,7 +95,7 @@ public class TestController {
         return ruleService.findByRuleCode(scene.getRuleCode());
     }
 
-    private Scene matchScene(final Map<String, Scene> sceneMap,final AuthContextFact authContextFact){
+    private Scene matchScene(final Map<String, Scene> sceneMap, final AuthContextFact authContextFact){
         for(Map.Entry<String, Scene> s :sceneMap.entrySet()){
             StandardEvaluationContext context = new StandardEvaluationContext();
             context.setVariable("AuthContextFact",authContextFact);
