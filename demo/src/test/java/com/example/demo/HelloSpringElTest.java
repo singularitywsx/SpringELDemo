@@ -3,7 +3,11 @@ package com.example.demo;
 import com.example.demo.controller.Car;
 import com.example.demo.controller.CommonRuleBean;
 import com.example.demo.controller.HelloSpringEl;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.expression.BeanFactoryResolver;
@@ -13,7 +17,9 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 import java.lang.reflect.Method;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.*;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -179,5 +185,43 @@ public class HelloSpringElTest {
         var result = parser.parseExpression("#collection.?[#this>2]").getValue(context, Collection.class);
         System.out.println(result);
     }
+
+    /** 計算投保年齡 */
+    @ParameterizedTest
+    @MethodSource("generateData")
+    @DisplayName("")
+    void test9(String day,int expect) {
+        var actual = getInsAge(day);
+        assertThat(actual).isEqualTo(expect);
+    }
+
+    int getInsAge(String input){
+        LocalDate today = LocalDate.of(2021,11,6);
+        Period diffage = Period.between(LocalDate.parse(input), today);
+        if (diffage.getMonths() >= 6 && diffage.getDays() > 0) {
+            return diffage.getYears() + 1;
+        }else if(diffage.getMonths() == 6 && diffage.getDays() == 0){
+            return diffage.getYears();
+        }else{
+            return diffage.getYears();
+        }
+    }
+
+    static Stream<Arguments> generateData() {
+        return Stream.of(
+                Arguments.of("2021-11-07","0"),
+                Arguments.of("2021-05-07","0"),
+                Arguments.of("2021-05-06","0"),
+                Arguments.of("2021-05-05","1"),
+                Arguments.of("2020-11-07","1"),
+                Arguments.of("2020-11-06","1"),
+                Arguments.of("2020-11-05","1"),
+                Arguments.of("2019-05-07","2"),
+                Arguments.of("2019-05-06","2"),
+                Arguments.of("2019-05-05","3")
+        );
+    }
+
+
 
 }
