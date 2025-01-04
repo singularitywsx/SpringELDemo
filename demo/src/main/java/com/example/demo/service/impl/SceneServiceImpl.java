@@ -1,6 +1,6 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.Scene;
+import com.example.demo.entity.SceneEntity;
 import com.example.demo.respository.SceneRespository;
 import com.example.demo.service.SceneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public class SceneServiceImpl implements SceneService {
 
 
     @Override
-    public List<Scene> findAll() {
+    public List<SceneEntity> findAll() {
         return sceneRespository.findAll();
     }
 }

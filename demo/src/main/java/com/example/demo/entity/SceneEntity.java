@@ -7,21 +7,21 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "SCENE")
-public class Scene {
+public class SceneEntity {
     @Id
-    @Column(name = "id")
+    @Column(name = "ID")
     public Integer id;
 
-    @Column(name = "rule_code")
+    @Column(name = "RULE_CODE")
     public String ruleCode;
 
-    @Column(name = "sene_name")
+    @Column(name = "SCENE_NAME")
     public String seneName;
 
-    @Column(name = "expression")
+    @Column(name = "EXPRESSION")
     public String expression;
 
-    @Column(name = "memo")
+    @Column(name = "MEMO")
     public String memo;
 
     public Integer getId() {

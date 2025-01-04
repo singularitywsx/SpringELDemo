@@ -1,11 +1,10 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Scene;
+import com.example.demo.entity.SceneEntity;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface SceneService {
 
-    List<Scene> findAll();
+    List<SceneEntity> findAll();
 }

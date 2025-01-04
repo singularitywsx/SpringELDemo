@@ -3,8 +3,8 @@ package com.example.demo.controller;
 import com.example.demo.dto.AuthResultResponse;
 import com.example.demo.dto.AuthResultResponseBody;
 import com.example.demo.dto.CommonHeader;
-import com.example.demo.entity.Rule;
-import com.example.demo.entity.Scene;
+import com.example.demo.entity.RuleEntity;
+import com.example.demo.entity.SceneEntity;
 import com.example.demo.fact.AuthContextFact;
 import com.example.demo.fact.UserFact;
 import com.example.demo.service.RuleService;
@@ -59,9 +59,9 @@ public class TestController {
         }
     }
 
-    private AuthResultResponse makeResponse(final List<Rule> rules, final UserFact userFact,final String rule){
+    private AuthResultResponse makeResponse(final List<RuleEntity> ruleEntities, final UserFact userFact, final String rule){
         var message = new ArrayList<String>();
-        for (var s:rules) {
+        for (var s: ruleEntities) {
             if(!marchRule(s.getExpression(),userFact)) {
                 message.add(s.getMessage());
             }
@@ -91,12 +91,12 @@ public class TestController {
         return Boolean.TRUE.equals(parser.parseExpression(SpringEL).getValue(context, Boolean.class));
     }
 
-    private List<Rule> getRuleExpression(final Scene scene){
-        return ruleService.findByRuleCode(scene.getRuleCode());
+    private List<RuleEntity> getRuleExpression(final SceneEntity sceneEntity){
+        return ruleService.findByRuleCode(sceneEntity.getRuleCode());
     }
 
-    private Scene matchScene(final Map<String, Scene> sceneMap, final AuthContextFact authContextFact){
-        for(Map.Entry<String, Scene> s :sceneMap.entrySet()){
+    private SceneEntity matchScene(final Map<String, SceneEntity> sceneMap, final AuthContextFact authContextFact){
+        for(Map.Entry<String, SceneEntity> s :sceneMap.entrySet()){
             StandardEvaluationContext context = new StandardEvaluationContext();
             context.setVariable("AuthContextFact",authContextFact);
 
@@ -108,9 +108,9 @@ public class TestController {
         return null;
     }
 
-    private Map<String, Scene> getAllScene(){
-        Map<String, Scene> sceneMap = new HashMap<>();
-        sceneService.findAll().forEach(scene -> sceneMap.put(scene.getExpression(),scene));
+    private Map<String, SceneEntity> getAllScene(){
+        Map<String, SceneEntity> sceneMap = new HashMap<>();
+        sceneService.findAll().forEach(sceneEntity -> sceneMap.put(sceneEntity.getExpression(), sceneEntity));
         return sceneMap;
     }
 

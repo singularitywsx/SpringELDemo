@@ -1,6 +1,6 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.Rule;
+import com.example.demo.entity.RuleEntity;
 import com.example.demo.respository.RuleRespository;
 import com.example.demo.service.RuleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class RuleServiceImpl implements RuleService {
     public RuleRespository ruleRespository;
 
     @Override
-    public List<Rule> findByRuleCode(final String code) {
+    public List<RuleEntity> findByRuleCode(final String code) {
         return ruleRespository.findByRuleCode(code);
     }
 }

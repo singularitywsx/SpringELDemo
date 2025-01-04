@@ -8,24 +8,24 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "RULE")
-public class Rule implements Serializable {
+public class RuleEntity implements Serializable {
     @Id
-    @Column(name = "id")
+    @Column(name = "ID")
     public Integer id;
 
-    @Column(name = "rule_code")
+    @Column(name = "RULE_CODE")
     public String ruleCode;
 
-    @Column(name = "rule_name")
+    @Column(name = "RULE_NAME")
     public String ruleName;
 
-    @Column(name = "expression")
+    @Column(name = "EXPRESSION")
     public String expression;
 
-    @Column(name = "rule_type")
+    @Column(name = "RULE_TYPE")
     public String ruleType;
 
-    @Column(name = "message")
+    @Column(name = "MESSAGE")
     public String message;
 
     public Integer getId() {
